@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Color & Image Utility{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome to Color & Image Utility</h1>
+        <p>A modern tool for color conversion and image manipulation</p>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-palette"></i>
+        </div>
+        <h3>Color Conversion</h3>
+        <p>Convert colors between HEX, RGB, and CMYK formats with ease.</p>
+        <a href="{{ url_for('color_converter') }}" class="btn">Try Color Converter</a>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-images"></i>
+        </div>
+        <h3>Image Conversion</h3>
+        <p>Convert your images between PNG, JPG, and WebP formats.</p>
+        <a href="{{ url_for('image_converter') }}" class="btn">Try Image Converter</a>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-save"></i>
+        </div>
+        <h3>Save Favorites</h3>
+        <p>Save your favorite colors for later use and quick access.</p>
+        <a href="{{ url_for('color_converter') }}" class="btn">Save Colors</a>
+    </div>
+</section>
+
+<section class="about">
+    <h2>About This App</h2>
+    <p>Color & Image Utility is a modern application designed to simplify your workflow when working with colors and images. With an intuitive interface and powerful features, it helps you manage your design assets efficiently.</p>
+    
+    <div class="features-list">
+        <div class="feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Modern UI with dark mode support</span>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Advanced color picker</span>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Multiple color format conversions</span>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Image format conversion</span>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Save favorite colors</span>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Advanced file management</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

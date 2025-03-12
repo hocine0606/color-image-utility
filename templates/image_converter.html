@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Image Converter - Color & Image Utility{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/image_converter.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="image-converter">
+    <h2>Image Converter</h2>
+    
+    <div class="converter-container">
+        <form action="{{ url_for('convert_image') }}" method="post" enctype="multipart/form-data" class="converter-form">
+            <div class="file-upload-container">
+                <div class="file-upload-area" id="file-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop your image here or click to browse</p>
+                    <input type="file" id="image-upload" name="image" accept="image/*" required>
+                </div>
+                <div class="file-preview" id="file-preview">
+                    <div class="preview-container">
+                        <img id="preview-image" src="" alt="Preview">
+                    </div>
+                    <div class="file-info">
+                        <p><strong>Name: </strong><span id="file-name"></span></p>
+                        <p><strong>Size: </strong><span id="file-size"></span></p>
+                        <p><strong>Type: </strong><span id="file-type"></span></p>
+                    </div>
+                    <button type="button" id="remove-file" class="btn btn-small btn-danger">
+                        <i class="fas fa-times"></i> Remove
+                    </button>
+                </div>
+            </div>
+            
+            <div class="conversion-options">
+                <h3>Conversion Options</h3>
+                
+                <div class="input-group">
+                    <label for="target-format">Target Format:</label>
+                    <select id="target-format" name="target_format" required>
+                        <option value="png">PNG</option>
+                        <option value="jpg">JPG</option>
+                        <option value="webp">WebP</option>
+                        <option value="gif">GIF</option>
+                        <option value="bmp">BMP</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-exchange-alt"></i> Convert Image
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="conversion-history">
+    <h2>Conversion History</h2>
+    
+    {% if conversions %}
+    <div class="conversions-list">
+        {% for conversion in conversions %}
+        <div class="conversion-card">
+            <div class="conversion-preview">
+                <div class="original-image">
+                    <h4>Original</h4>
+                    <img src="{{ url_for('static', filename='uploads/' + conversion.original_filename) }}" alt="Original image">
+                    <p>{{ conversion.original_format.upper() }}</p>
+                </div>
+                <div class="conversion-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="converted-image">
+                    <h4>Converted</h4>
+                    <img src="{{ url_for('static', filename='uploads/' + conversion.converted_filename) }}" alt="Converted image">
+                    <p>{{ conversion.converted_format.upper() }}</p>
+                </div>
+            </div>
+            
+            <div class="conversion-info">
+                <p><strong>Original:</strong> {{ conversion.original_filename }}</p>
+                <p><strong>Converted:</strong> {{ conversion.converted_filename }}</p>
+                <p><strong>Date:</strong> {{ conversion.date_converted.strftime('%Y-%m-%d %H:%M') }}</p>
+                
+                <div class="conversion-actions">
+                    <a href="{{ url_for('static', filename='uploads/' + conversion.converted_filename) }}" download class="btn btn-small">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                    <form action="{{ url_for('delete_conversion', conversion_id=conversion.id) }}" method="post" class="delete-form">
+                        <button type="submit" class="btn btn-small btn-danger">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-conversions">
+        <p>You haven't converted any images yet. Upload and convert images to see them here.</p>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/image_converter.js') }}"></script>
+{% endblock %}

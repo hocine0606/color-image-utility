@@ -1,0 +1,219 @@
+/* Color Converter Specific Styles */
+
+.color-converter {
+    margin-bottom: 3rem;
+}
+
+.converter-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    background-color: var(--card-background);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.color-picker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-preview {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: #4287f5;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+#color-picker {
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.converter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-weight: 500;
+}
+
+.input-group input,
+.input-group select {
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.input-group select {
+    cursor: pointer;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--background-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label {
+    font-weight: 600;
+    min-width: 60px;
+}
+
+.value-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.copy-btn:hover {
+    color: var(--secondary-color);
+}
+
+.save-color {
+    margin-top: 1rem;
+}
+
+/* Saved Colors Section */
+.saved-colors {
+    margin-top: 3rem;
+}
+
+.colors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.color-card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: transform 0.3s ease;
+}
+
+.color-card:hover {
+    transform: translateY(-5px);
+}
+
+.color-sample {
+    height: 100px;
+    width: 100%;
+}
+
+.color-info {
+    padding: 1.2rem;
+}
+
+.color-info h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.color-values {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.value-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.color-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.delete-form {
+    display: inline;
+}
+
+.no-colors {
+    background-color: var(--card-background);
+    padding: 2rem;
+    text-align: center;
+    border-radius: 8px;
+    color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .converter-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .color-picker-container {
+        margin-bottom: 1.5rem;
+    }
+    
+    .color-preview {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .colors-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .colors-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .value-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

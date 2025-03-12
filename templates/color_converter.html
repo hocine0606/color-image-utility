@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Color Converter - Color & Image Utility{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/color_converter.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="color-converter">
+    <h2>Color Converter</h2>
+    
+    <div class="converter-container">
+        <div class="color-picker-container">
+            <div class="color-preview" id="color-preview"></div>
+            <input type="color" id="color-picker" value="#4287f5">
+        </div>
+        
+        <div class="converter-form">
+            <div class="input-group">
+                <label for="input-type">Input Format:</label>
+                <select id="input-type">
+                    <option value="hex">HEX</option>
+                    <option value="rgb">RGB</option>
+                    <option value="cmyk">CMYK</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="color-input">Color Value:</label>
+                <input type="text" id="color-input" placeholder="Enter color value">
+                <button id="convert-btn" class="btn">Convert</button>
+            </div>
+            
+            <div class="results">
+                <div class="result-item">
+                    <span class="label">HEX:</span>
+                    <div class="value-container">
+                        <span id="hex-result">#4287f5</span>
+                        <button class="copy-btn" data-target="hex-result">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="label">RGB:</span>
+                    <div class="value-container">
+                        <span id="rgb-result">rgb(66, 135, 245)</span>
+                        <button class="copy-btn" data-target="rgb-result">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="label">CMYK:</span>
+                    <div class="value-container">
+                        <span id="cmyk-result">cmyk(73, 45, 0, 4)</span>
+                        <button class="copy-btn" data-target="cmyk-result">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="save-color">
+                <form id="save-color-form" action="{{ url_for('save_color') }}" method="post">
+                    <div class="input-group">
+                        <label for="color-name">Save this color:</label>
+                        <input type="text" id="color-name" name="name" placeholder="Enter a name for this color">
+                        <input type="hidden" id="hex-value" name="hex_value">
+                        <input type="hidden" id="rgb-value" name="rgb_value">
+                        <input type="hidden" id="cmyk-value" name="cmyk_value">
+                        <button type="submit" class="btn">Save Color</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="saved-colors">
+    <h2>Saved Colors</h2>
+    
+    {% if saved_colors %}
+    <div class="colors-grid">
+        {% for color in saved_colors %}
+        <div class="color-card">
+            <div class="color-sample" style="background-color: {{ color.hex_value }}"></div>
+            <div class="color-info">
+                <h4>{{ color.name }}</h4>
+                <div class="color-values">
+                    <div class="value-item">
+                        <span class="label">HEX:</span>
+                        <span class="value">{{ color.hex_value }}</span>
+                    </div>
+                    <div class="value-item">
+                        <span class="label">RGB:</span>
+                        <span class="value">{{ color.rgb_value }}</span>
+                    </div>
+                    <div class="value-item">
+                        <span class="label">CMYK:</span>
+                        <span class="value">{{ color.cmyk_value }}</span>
+                    </div>
+                </div>
+                <div class="color-actions">
+                    <button class="btn btn-small use-color" data-hex="{{ color.hex_value }}" data-rgb="{{ color.rgb_value }}" data-cmyk="{{ color.cmyk_value }}">
+                        <i class="fas fa-eye-dropper"></i> Use
+                    </button>
+                    <form action="{{ url_for('delete_color', color_id=color.id) }}" method="post" class="delete-form">
+                        <button type="submit" class="btn btn-small btn-danger">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-colors">
+        <p>You haven't saved any colors yet. Convert and save colors to see them here.</p>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/color_converter.js') }}"></script>
+{% endblock %}
